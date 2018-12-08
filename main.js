@@ -15,7 +15,7 @@ function saveIssue(e) {
         status: issueStatus
     }
 
-    if (localStorage.getItem('issues') == null) {
+    if (localStorage.getItem('issues') === null) {
         var issues = [];
         issues.push(issue);
         console.log(issue + "ewe");
@@ -30,6 +30,16 @@ function saveIssue(e) {
     e.preventDefault();
 }
 
+function setStatusClosed(id) {
+    var issues = JSON.parse(localStorage.getItem('issues'));
+    for (var i = 0; i < issues.length; i++) {
+        if (issues[i].id === id) {
+            issues[i].status = 'Closed';
+        }
+    }
+    localStorage.setItem('issues', JSON.stringify(issues));
+    fetchIssues();
+}
 
 function fetchIssues() {
 
@@ -37,7 +47,7 @@ function fetchIssues() {
     var issuesList = document.getElementById('issuesList');
 
     issuesList.innerHTML = '';
-    if (localStorage.getItem('issues') != null) {
+    if (localStorage.getItem('issues') !== null) {
         for (var i = 0; i < issues.length; i++) {
             var id = issues[i].id;
             var desc = issues[i].description;
