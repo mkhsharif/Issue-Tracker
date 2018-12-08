@@ -1,4 +1,4 @@
-document.getElementById('issueInputForm').addEventListener('sumbit', saveIssue);
+document.getElementById('addBtn').addEventListener('click', saveIssue);
 
 function saveIssue(e) {
     var issueDesc = document.getElementById('issueDescInput').value;
@@ -18,17 +18,16 @@ function saveIssue(e) {
     if (localStorage.getItem('issues') == null) {
         var issues = [];
         issues.push(issue);
+        console.log(issue + "ewe");
         localStorage.setItem('issues', JSON.stringify(issues));
     } else {
         var issues = JSON.parse(localStorage.getItem('issues'));
-        issue.push(issue);
+        issues.push(issue);
         localStorage.setItem('issues', JSON.stringify(issues));
     }
     document.getElementById('issueInputForm').reset();
     fetchIssues();
     e.preventDefault();
-
-
 }
 
 
@@ -53,7 +52,7 @@ function fetchIssues() {
                 '<h3>' + desc + '</h3>' +
                 '<p><span class="glyphicon glyphicon-time></span>' + severity + '</p>' +
                 '<p><span class="glyphicon glyphicon-user></span>' + assignedTo + '</p>' +
-                '<a href="#" onclick="setStatusClosed(\'' + id + '\')" class="btn btn-warning">Close</a>' +
+                '<a href="#" onclick="setStatusClosed(\'' + id + '\')" class="btn btn-warning">Close</a>&nbsp;' +
                 '<a href="#" onclick="deleteIssue(\'' + id + '\')" class="btn btn-danger">Delete</a>' +
                 '</div>';
         }
